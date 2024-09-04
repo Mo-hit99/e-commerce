@@ -8,6 +8,8 @@ const Product_DB = mongoose.Schema({
     category:{type:String,required:true},
     rate:{type:String,required:true},
     count:{type:String,required:true},
+    path:{type:String,required:true},
+    filename:{type:String,required:true}
 },{timestamps:true});
 
 const ProductSchema = mongoose.model('productData',Product_DB);

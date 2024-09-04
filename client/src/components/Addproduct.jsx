@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import axios from 'axios'
 
 export default function Addproduct() {
@@ -8,7 +8,7 @@ export default function Addproduct() {
      async function createImages(e) {
        e.preventDefault();
        try {
-         axios.post('http://localhost:5000/productData/images',formData,{
+         axios.post('http://localhost:5000/productData',formData,{
           headers: {
             "Content-Type": "multipart/form-data"
           },
@@ -18,12 +18,20 @@ export default function Addproduct() {
         console.log({error:error.message})
        }
      }
+
+     useEffect(()=>{
+          fetchImage()
+     },[])
+     async function fetchImage(){
+      const response =await axios.get('http://localhost:5000/productData');
+      console.log(response.data.data)
+     }
      console.log(Image)
   return (
     <section>
       <h1>Add product</h1>
       <form className='form-data' onSubmit={createImages} encType="multipart/form-data">
-      <input type="file" name="image" onChange={(e)=> setImage(e.target.files[0])}/>
+      <input multiple type="file" name="image" onChange={(e)=> setImage(e.target.files[0])}/>
       <button>Submit</button>
       </form>
     </section>
