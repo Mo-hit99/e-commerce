@@ -36,10 +36,10 @@ export default function Footer() {
             </div>
             <div className="col-4">
                 <h3>Contact Us</h3>
-                <form>
+                <form className="submission">
                     <i className="far fa-envelope"></i>
                     <input type="email" placeholder="Enter your email" required />
-                    <button><i className="fa-solid fa-paper-plane"></i></button>
+                    <button className="submission-btn"><i className="fa-solid fa-paper-plane"></i></button>
                 </form>
                 <div className="social-icons">
                     <a href="#"><i className="fab fa-facebook-f"></i></a>
