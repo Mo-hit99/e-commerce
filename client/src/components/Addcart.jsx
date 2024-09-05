@@ -22,13 +22,13 @@ export default function Addcart() {
     <section className="shopping-cart">
     { cart.items.length === 0 ? (<div className="cart-empty"><p>Your cart is currently empty  <i className="fa-regular fa-face-rolling-eyes"></i></p></div>) :(cart.items?.map((element)=>(
       <>
-      <div key={element.product.id} className="shopping-item">
+      <div key={element.product._id} className="shopping-item">
         <div className="image-container-shopping">
-          <img className="shopping-cart-image" src={element.product.image} alt="shoping" />
+          <img className="shopping-cart-image" src={`http://localhost:5000/productData/${element.product.filename}`} alt={element.product.title} />
         </div>
         <div className="shopping-cart-description">
           <h1 className="shopping-cart-heading">{element.product.brand}</h1>
-          <h4 className="shopping-cart-content">{element.product.description}</h4>
+          <h4 className="shopping-cart-content">{element.product.title}</h4>
         </div>
         <div className="quantity-items-btn">
           <button onClick={()=> subtractItems(element.productId)} className="items-minus"><i className="fa-solid fa-minus"></i></button>
@@ -42,7 +42,7 @@ export default function Addcart() {
           <p className="shopping-pricing"> ₹ {parseInt(element.product.price) * element.quantity}</p>
         </div>
         <div className="shopping-cart-buy-btn">
-          <button onClick={()=> handleRemoveCart(element.product.id)} className="place-your-order"><i className="fa-solid fa-xmark"></i></button>
+          <button onClick={()=> handleRemoveCart(element.product._id)} className="place-your-order"><i className="fa-solid fa-xmark"></i></button>
         </div>
       </div>
   </>

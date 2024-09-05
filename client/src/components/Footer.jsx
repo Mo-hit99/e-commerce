@@ -4,9 +4,8 @@ export default function Footer() {
     const [date,setDate]= useState(new Date);
 
   return (
-    <footer>
+    <footer className="sticky-footer">
         <div className="footer">
-
         <div className="footer-container">
             {/* <div className="col-1">
                 <img src="/" alt="add image"/>

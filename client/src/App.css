@@ -5,6 +5,13 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+/* App */
+.App{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 /* admin dashboard for Product */
 .productCreate-section{
   position: relative;
@@ -110,6 +117,7 @@
   width: 450px;
   color: #e5e5e5;
   background-color:#115dfc;
+  border-radius: 20px;
   filter: drop-shadow(0px 1px 0px #efefef)
     drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
   transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
@@ -152,6 +160,85 @@
   background-color: transparent;
 }
 
+/* dashboard home card */
+.admin-product-container{
+  padding: 1rem;
+  display:flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.admin-product-card {
+  width: 190px;
+  background: #e6e3e3;
+  padding: .4em;
+  border-radius: 6px;
+}
+
+.admin-product-card-image {
+  background-color: rgb(236, 236, 236);
+  width: 100%;
+  height: 130px;
+  border-radius: 6px 6px 0 0;
+}
+
+.admin-product-image{
+  width: 100%;
+  height: 130px;
+  border-radius: 6px 6px 0 0;
+  object-fit:cover;
+}
+.admin-product-card-image:hover {
+  transform: scale(0.98);
+}
+
+.admin-product-category {
+  text-transform: uppercase;
+  font-size: 0.7em;
+  font-weight: 600;
+  color: rgb(63, 121, 230);
+  padding: 10px 7px 0;
+}
+
+.admin-product-category:hover {
+  cursor: pointer;
+}
+
+.admin-product-heading {
+  font-weight: 600;
+  color: rgb(88, 87, 87);
+  padding: 7px;
+}
+
+.admin-product-heading:hover {
+  cursor: pointer;
+}
+
+.admin-product-author {
+  color: gray;
+  font-weight: 400;
+  font-size: 11px;
+  padding-top: 20px;
+}
+
+.admin-product-name {
+  font-weight: 600;
+}
+
+.admin-product-name:hover {
+  cursor: pointer;
+}
+.admin-delete-btn{
+  color: #fff;
+  background-color:#e70000;
+  border: none;
+  display: block;
+  width: 80px;
+  margin: 1rem 0;
+  padding:.4rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
 /* logo */
 .logo {
   font-size: 25px;
@@ -558,7 +645,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 30rem;
+  width: 20rem;
   padding: 2rem;
   background-color: white;
   border-radius: 10px;
@@ -569,8 +656,8 @@
 }
 
 .product-card__image {
-  max-width: 250px;
-  height: auto;
+  width: 190px;
+  height: 280px;
 }
 
 .product-card__description,
@@ -865,6 +952,10 @@
   padding-right: 1rem;
 }
 /* footer */
+
+.sticky-footer{
+ margin-top: auto;
+}
 .footer-distributed {
   background: rgb(0, 0, 0);
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);

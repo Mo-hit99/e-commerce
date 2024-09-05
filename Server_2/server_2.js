@@ -10,10 +10,10 @@ const app = express();
 
 app.use(cors())
 app.use(express.json());
-app.use(route)
-app.use('/',express.static('public'))
+app.use('/productData',express.static("public"));
 
 app.listen(PORT,()=>{
     console.log(`http://localhost:${PORT}/productData`)
     DB_Connection()
 })
+app.use(route)

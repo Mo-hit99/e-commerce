@@ -69,13 +69,13 @@ export default function NavLinks({
                     {signIn}
                   </NavLink>
                 </li>
-              </>
-            )}
                 <li>
                   <NavLink className="nav-link-text" to="/Admin">
                     {admin}
                   </NavLink>
                 </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>
