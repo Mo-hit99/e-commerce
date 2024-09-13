@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div className='App'>
-      <NavLinks admin={'Admin'} logo={"E-commerce"} home={"Home"} products={'Products'} signIn={'Sign In'} Addcart={<i className="fa-solid fa-cart-shopping"></i>} />
+      <NavLinks admin={'Admin'} logo={"e-commerce"} home={"Home"} products={'Products'} signIn={'SignIn'} Addcart={<i className="fa-solid fa-cart-shopping"></i>} />
       <Outlet/>
       <Footer/>
     </div>

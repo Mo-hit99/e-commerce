@@ -4,7 +4,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 export default function NavLinks({
   admin,
   logo,
-  home,
   products,
   signIn,
   Addcart,
@@ -24,7 +23,9 @@ export default function NavLinks({
   return (
     <header className="container">
       <nav className="nav-container">
-        <h1 className="logo">{logo}</h1>
+      <NavLink className="nav-link-text-logo" to="/">
+                    {logo}
+      </NavLink>
         <div className="nav-link01">
           <ul>
             {isUserSignedIn && UserEmail === "admin@gmail.com" ? (
@@ -42,11 +43,6 @@ export default function NavLinks({
               </>
             ) : (
               <>
-                <li>
-                  <NavLink className="nav-link-text" to="/">
-                    {home}
-                  </NavLink>
-                </li>
                 <li>
                   <NavLink className="nav-link-text" to="/products">
                     {products}
