@@ -12,7 +12,7 @@ export default function DashBoard() {
   async function fetchProductData(){
     try {
       const response = await axios.get('http://localhost:5000/productData')
-      setProductData(response.data);
+      setProductData(response.data.queryData);
       if(!response){
         console.log("failed to fetch")
       }
@@ -33,11 +33,6 @@ async function deleteProduct(id){
       console.log(result.error)
     }
     alert('delete product successfully')
-    if(response.ok){
-      setTimeout(()=>{
-        fetchProductData();
-      },1000)
-    }
     
 } catch (error) {
   console.log({error : error.message})

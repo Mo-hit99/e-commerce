@@ -13,10 +13,11 @@ const port= process.env.PORT || 8080;
 
 app.use(cors())
 app.use(express.json())
-app.use(route)
 
+app.use('/productData',express.static("public"));
 
 app.listen(port,()=>{
   console.log(`http://localhost:${port}/user`);
   db_connection()
 })
+app.use(route)

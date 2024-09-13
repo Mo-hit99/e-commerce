@@ -15,11 +15,11 @@ export default function Addcart() {
      dispatch(subtractQuantityItems(cartItem))
     }
   return (
-      <>
+      <div className='shopping-main-container'>
+    <section className="shopping-cart">
     <div className="title">
       <h1 className="title-heading">Shopping Bags <i className="fa-solid fa-tag"></i></h1>
     </div>
-    <section className="shopping-cart">
     { cart.items.length === 0 ? (<div className="cart-empty"><p>Your cart is currently empty  <i className="fa-regular fa-face-rolling-eyes"></i></p></div>) :(cart.items?.map((element)=>(
       <>
       <div key={element.product._id} className="shopping-item">
@@ -42,11 +42,12 @@ export default function Addcart() {
           <p className="shopping-pricing"> ₹ {parseInt(element.product.price) * element.quantity}</p>
         </div>
         <div className="shopping-cart-buy-btn">
-          <button onClick={()=> handleRemoveCart(element.product._id)} className="place-your-order"><i className="fa-solid fa-xmark"></i></button>
+          <button onClick={()=> handleRemoveCart(element.product._id)} className="addcart-remove-btn"><i className="fa-solid fa-xmark"></i></button>
         </div>
       </div>
   </>
   )))}
+  </section>
   {cart.cartTotalQuantity === 0 ? false:
   <div className="Total-amount">
     <div className="total-container">
@@ -55,12 +56,11 @@ export default function Addcart() {
     <h3 className='total-product-amount'>Total Amount:</h3>
     <p>₹ {cart.cartTotalAmount}</p>
      <div className="checkout-btn">
-    <button className='checkoutcart-in_btn'><i className="fa-solid fa-check"></i> Checkout</button>
+    <button className='checkoutcart-in_btn'>Pay ₹{cart.cartTotalAmount}</button>
      </div> 
     </div>
   </div>
   }
-  </section>
-  </>
+  </div>
   )
 }

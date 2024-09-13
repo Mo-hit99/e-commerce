@@ -1,5 +1,5 @@
 import express from "express";
-import {createProductData,DeleteProductData, getAllProductData, getProductDataById, UpdateProductData } from "../controller/Product_Controller.js";
+import {createProductData,DeleteProductData, getAllProductData, getProductDataById, UpdateProductData } from "../Product_controller/Product_Controller.js";
 import upload from "../Image_multer/image_multer.js";
 
 
@@ -18,7 +18,7 @@ route.get('/productData/:id',getProductDataById)
 route.post('/productData',upload.single('image'),createProductData)
 
 // update data
-route.patch('/productData/:id',UpdateProductData)
+route.put('/productData/:id',upload.single('image'),UpdateProductData)
 
 // delete data
 route.delete('/productData/:id',DeleteProductData)
