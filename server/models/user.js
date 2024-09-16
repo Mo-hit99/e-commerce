@@ -2,11 +2,11 @@ import mongoose from "mongoose"
 import bcrypt from 'bcrypt'
 import validator from 'validator'
 
-
 const userSchema = mongoose.Schema({
-  name: { type: String, required: true},
-  email:{ type: String, required: true, unique: true,lowercase:true },
-  password:{ type: String, required: true }
+  name: { type: String},
+  email:{ type: String,unique: true,lowercase:true },
+  password:{ type: String},
+  image:{type:String}
 },{timestamps:true});
 
 
@@ -43,6 +43,32 @@ userSchema.statics.login = async function(email,password){
     const match = await bcrypt.compare(password,user.password)
     if(!match){
         throw Error("Invalid Password")
+    }
+    return user;
+}
+userSchema.statics.forgotPassword = async function(email){
+    
+    if(!email){
+        throw Error('email Fields must be filled')
+    }
+    const user = await this.findOne({email})
+    if(!user){
+        throw Error('Invalid Email')
+    }
+    return user;
+}
+userSchema.statics.restPassword = async function(id,password){
+    // if(!id || !password){
+    //     throw Error('Password Fields must be filled');
+    // }
+    // if(!validator.isStrongPassword(password)){
+    //     throw Error('Password not strong enough')
+    // }
+    const salt=await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(password,salt)
+    const user = await this.findByIdAndUpdate(id,{password:hash}).exec();
+    if(!user){
+        throw Error('Password Not Created')
     }
     return user;
 }

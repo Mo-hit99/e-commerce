@@ -12,7 +12,7 @@ export default function ProductDetails() {
            productDetails?.map((element)=>(
          <div key={element[1]._id} className="product-details-container">
          <div  className="img-details">
-            <img className="product-img" src={`http://localhost:5000/productData/${element[1].filename}`} alt={element[1].title} />
+            <img className="product-img" src={`http://localhost:3000/productData/${element[1].filename}`} alt={element[1].title} />
             </div>
             <div key={element[1]?._id} className="product-content">
             <h1 className="product-detail-title">{element[1]?.brand}</h1>

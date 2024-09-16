@@ -1,27 +1,45 @@
 import express from "express";
-import { get_allData, getById_data, UserCreateData, UserDeleteDate, userLogin, UserUpdateData } from "../controller/controller.js";
+import dotenv from "dotenv";
+import {
+  get_allData,
+  getById_data,
+  googleLogin,
+  UserCreateData,
+  UserDeleteDate,
+  userForgotPassword,
+  userLogin,
+  userRestPassword,
+  UserUpdateData,
+} from "../controller/controller.js";
+
+dotenv.config();
 
 export const route = express.Router();
 
 // get all user data
-route.get('/user',get_allData)
+route.get("/", get_allData);
 
-
-// get user data by Id 
-route.get('/user/:id',getById_data)
-
-
+// get user data by Id
+route.get("/:id", getById_data);
 
 // update user data
-route.patch('/user/:id',UserUpdateData)
-
+route.patch("/:id", UserUpdateData);
 
 // delete user data
-route.delete('/user/:id',UserDeleteDate)
-
+route.delete("/:id", UserDeleteDate);
 
 // create user data register
-route.post('/signup',UserCreateData)
+route.post("/signup", UserCreateData);
 
 // user login
-route.post('/login',userLogin)
+route.post("/login", userLogin);
+
+// forgot-password
+
+route.post("/forgot-password", userForgotPassword);
+
+// rest-password
+route.post("/reset-password/:token", userRestPassword);
+
+// google login
+route.get("/auth/google", googleLogin);

@@ -22,7 +22,7 @@ export default function Products() {
 
   async function fetchProductData() {
     try {
-      const response = await axios.get(`http://localhost:5000/productData`, {
+      const response = await axios.get(`http://localhost:3000/productData`, {
         params: {
           page: activePage,
           pageSize: LIMIT,
@@ -46,7 +46,7 @@ export default function Products() {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `http://localhost:5000/productData?category=${category}&brand=${brand}`
+        `http://localhost:3000/productData?category=${category}&brand=${brand}`
       );
       let result = await response.data;
       if (result) {
@@ -60,7 +60,7 @@ export default function Products() {
     e.preventDefault();
     try {
       let response = await axios.get(
-        `http://localhost:5000/productData/?search=${query}`
+        `http://localhost:3000/productData/?search=${query}`
       );
       let result = await response.data;
       if (result) {
@@ -90,7 +90,7 @@ export default function Products() {
       </form>
       <div className="main-container-form">
         <div className="category-selection">
-          <button onClick={() => handleCategory("Shoes")}>Shoes</button>
+          <button onClick={() => handleCategory("shoes")}>Shoes</button>
         </div>
 
         <InfiniteScroll
@@ -107,7 +107,7 @@ export default function Products() {
                   key={product._id}
                   state={product}
                   links={`/ProductDetails/${product.id}`}
-                  image={`http://localhost:5000/productData/${product.filename}`}
+                  image={`http://localhost:3000/productData/${product.filename}`}
                   brand={product.brand}
                   description={product.title}
                   formattedPrice={"₹ " + product.price}
@@ -151,7 +151,7 @@ export default function Products() {
                 type="checkbox"
                 name="shoes"
                 id="shoes"
-                value={"Shoes"}
+                value={"shoes"}
                 onChange={(e) => setCategory(e.target.value)}
               />
               <label className="checkbox-label" htmlFor="shoes">
@@ -163,7 +163,7 @@ export default function Products() {
                 type="checkbox"
                 name="shoes"
                 id="T-Shirts"
-                value={"T-Shirts"}
+                value={"t-shirts"}
                 onChange={(e) => setCategory(e.target.value)}
               />
               <label className="checkbox-label" htmlFor="T-Shirts">

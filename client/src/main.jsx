@@ -14,7 +14,17 @@ import Admin from "./components/Admin.jsx";
 import DashBoard from "./components/DashBoard.jsx";
 import Addproduct from "./components/Addproduct.jsx";
 import ViewProduct from "./components/ViewProduct.jsx";
+import ForgotPassword from "./components/ForgotPassword.jsx";
+import RestPassword from "./components/RestPassword.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
+const GoogleAuthWrapper=()=>{
+  return (
+    <GoogleOAuthProvider clientId="778040544297-35iljdchdtvk0e6gh6qgesp8pjdep6ks.apps.googleusercontent.com">
+      <SignIn></SignIn>
+    </GoogleOAuthProvider>
+  )
+}
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,11 +40,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/signIn",
-        element: <SignIn />,
+        element: <GoogleAuthWrapper />,
       },
       {
         path: "/signUp",
         element: <SignUp />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/reset-password/:token",
+        element: <RestPassword />,
       },
       {
         path: "/Addcart",
@@ -75,6 +93,6 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </Provider>
 );

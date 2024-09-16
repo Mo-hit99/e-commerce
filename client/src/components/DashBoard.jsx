@@ -11,7 +11,7 @@ export default function DashBoard() {
   
   async function fetchProductData(){
     try {
-      const response = await axios.get('http://localhost:5000/productData')
+      const response = await axios.get('http://localhost:3000/productData')
       setProductData(response.data.queryData);
       if(!response){
         console.log("failed to fetch")
@@ -27,7 +27,7 @@ export default function DashBoard() {
 
 async function deleteProduct(id){
   try {
-    const response = await axios.delete(`http://localhost:5000/productData/${id}`)
+    const response = await axios.delete(`http://localhost:3000/productData/${id}`)
     const result = await response.json()
     if(!response){
       console.log(result.error)
@@ -47,7 +47,7 @@ return (
       productData && productData?.map((item)=> (
       <div key={item._id} className="admin-product-card">
     <div className="admin-product-card-image">
-      <img className="admin-product-image" src={`http://localhost:5000/productData/${item?.filename}`} alt={item.category} />
+      <img className="admin-product-image" src={`http://localhost:3000/productData/${item?.filename}`} alt={item.category} />
     </div>
     <div className="admin-product-brand"> {item.brand} </div>
     <div className="admin-product-title"> {item.title} </div>

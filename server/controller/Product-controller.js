@@ -1,4 +1,4 @@
-import { ProductSchema } from "../Model/ProductDB.js";
+import { ProductSchema } from "../models/Product.js";
 
 // get all data
 export const getAllProductData = async (req, res) => {

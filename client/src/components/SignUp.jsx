@@ -171,7 +171,6 @@ export default function SignUp() {
             <i className="fa-solid fa-arrow-left"></i> Back
           </span>
         </NavLink>
-        <p className="note">Terms of use &amp; Conditions</p>
       </form>
     </>
   );

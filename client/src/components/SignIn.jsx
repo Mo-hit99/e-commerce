@@ -2,16 +2,18 @@ import axios from "axios";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Message from "./Message";
+import { useGoogleLogin } from "@react-oauth/google";
 import Loader from "./Loader";
+import { googleAuth } from "../assets/api";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [openModel, setOpenModel] = useState(false);
-  const [isLoading,setIsLoading]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  
+
   async function submitForm(e) {
     e.preventDefault();
     const response = axios.post("http://localhost:3000/login", {
@@ -23,31 +25,50 @@ export default function SignIn() {
       setOpenModel(true);
       setEmail("");
       setPassword("");
-      setTimeout(()=>{
-        setOpenModel(false)
-      },1500)
-      setTimeout(()=>{
-         setIsLoading(true)
-      },2000)
       setTimeout(() => {
-        setIsLoading(false)
+        setOpenModel(false);
+      }, 1500);
+      setTimeout(() => {
+        setIsLoading(true);
+      }, 2000);
+      setTimeout(() => {
+        setIsLoading(false);
         navigate("/");
-      },5000);
+      }, 5000);
       localStorage.setItem("token", token);
       localStorage.setItem("email", email);
     } catch (error) {
       setError(error.response.data.error);
     }
   }
-
+  async function responseGoogle(authResult) {
+    try {
+      if (authResult["code"]) {
+        const result = await googleAuth(authResult["code"]);
+        const { email, name, image } = result.data.user;
+        const token = result.data.token;
+        const objStoring = { email, name, image, token };
+        localStorage.setItem("user-info", JSON.stringify(objStoring));
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  const googleLogin = useGoogleLogin({
+    onSuccess: responseGoogle,
+    onError: responseGoogle,
+    flow: "auth-code",
+  });
   return (
     <>
       {openModel && (
-        <Message title={'Successfully SignIn!'} subtitle={'We Redirect To The Home Page'}/>
+        <Message
+          title={"Successfully SignIn!"}
+          subtitle={"We Redirect To The Home Page"}
+        />
       )}
-      {
-        isLoading && <Loader/>
-      }
+      {isLoading && <Loader />}
       <form className="form_container" onSubmit={submitForm}>
         <div className="title_container">
           <p className="title">Login to your Account</p>
@@ -136,15 +157,60 @@ export default function SignIn() {
           />
         </div>
         {error && <p className="error">{error}</p>}
+        <NavLink className={"forgot-password-btn-link"} to={"/forgot-password"}>
+          Forgot Password?
+        </NavLink>
         <button title="Sign In" type="submit" className="sign-in_btn">
           <span>Login In</span>
         </button>
+
         {/* {error && <div className="error">{error}</div>} */}
         <NavLink className="sign-btn-link" to={"/signUp"}>
           <span className="create-account-span">Don't have account?</span>
-          SignUp
+          Sign Up
         </NavLink>
-        <p className="note">Terms of use &amp; Conditions</p>
+        <p class="p line">Or With</p>
+        <button className="btn google" type="button" onClick={googleLogin}>
+        <svg
+    width={20}
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    viewBox="0 0 512 512"
+    style={{
+      enableBackground: "new 0 0 512 512",
+    }}
+    xmlSpace="preserve"
+  >
+    <path
+      style={{
+        fill: "#FBBB00",
+      }}
+      d="M113.47,309.408L95.648,375.94l-65.139,1.378C11.042,341.211,0,299.9,0,256 c0-42.451,10.324-82.483,28.624-117.732h0.014l57.992,10.632l25.404,57.644c-5.317,15.501-8.215,32.141-8.215,49.456 C103.821,274.792,107.225,292.797,113.47,309.408z"
+    />
+    <path
+      style={{
+        fill: "#518EF8",
+      }}
+      d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451 c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535 c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"
+    />
+    <path
+      style={{
+        fill: "#28B446",
+      }}
+      d="M416.253,455.624l0.014,0.014C372.396,490.901,316.666,512,256,512 c-97.491,0-182.252-54.491-225.491-134.681l82.961-67.91c21.619,57.698,77.278,98.771,142.53,98.771 c28.047,0,54.323-7.582,76.87-20.818L416.253,455.624z"
+    />
+    <path
+      style={{
+        fill: "#F14336",
+      }}
+      d="M419.404,58.936l-82.933,67.896c-23.335-14.586-50.919-23.012-80.471-23.012 c-66.729,0-123.429,42.957-143.965,102.724l-83.397-68.276h-0.014C71.23,56.123,157.06,0,256,0 C318.115,0,375.068,22.126,419.404,58.936z"
+    />
+  </svg>
+  Log in with Google
+        </button>
       </form>
     </>
   );

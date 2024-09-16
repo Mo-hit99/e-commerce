@@ -25,7 +25,7 @@ export default function Addproduct() {
      async function createImages(e) {
        e.preventDefault();
        try {
-         axios.post('http://localhost:5000/productData',formData,{
+         axios.post('http://localhost:3000/productData',formData,{
           headers: {
             "Content-Type": "multipart/form-data"
           },
