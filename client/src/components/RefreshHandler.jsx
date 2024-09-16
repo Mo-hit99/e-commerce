@@ -13,6 +13,6 @@ export default function RefreshHandler({setIsAuthenticated}) {
                 navigate('/',{replace:false});
             }
         }
-    },[location,navigate,setIsAuthenticated])
+    },[])
   return null;
 }

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToCard } from "../redux/cartSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
+import ProductLoading from "./ProductLoading";
 
 const LIMIT = 5;
 
@@ -98,7 +99,7 @@ export default function Products() {
           dataLength={data.length}
           next={fetchProductData}
           hasMore={data.length < totalProductData}
-          loader={data.length - 1 && data.length ? <p>Loading...</p> : false}
+          loader={<ProductLoading />}
         >
           <div className="productCard-container">
             {data && data.length > 0 ?  (
@@ -106,7 +107,7 @@ export default function Products() {
                 <ProductCard
                   key={product._id}
                   state={product}
-                  links={`/ProductDetails/${product.id}`}
+                  links={`/ProductDetails/${product._id}`}
                   image={`http://localhost:3000/productData/${product.filename}`}
                   brand={product.brand}
                   description={product.title}
