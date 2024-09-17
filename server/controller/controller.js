@@ -120,7 +120,7 @@ export const userForgotPassword = async (req, res) => {
     });
 
     let mailOptions = {
-      from: `<${process.env.NODE_MAIL_ID}>`,
+      from: `"e-Bazar.com" <${process.env.NODE_MAIL_ID}>`,
       to: `${user.email}`,
       subject: "Reset your Password",
       text: `Reset Your Password

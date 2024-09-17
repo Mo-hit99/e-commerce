@@ -668,6 +668,18 @@
   color: #8b8e98;
   margin-left: 0.4rem;
 }
+.show-password-label{
+  margin-left: .5rem;
+}
+.show-password-wrapper{
+  width: 100%;
+  font-size: 15px;
+  color: #8b8e98;
+}
+.show-password-container{
+  display: flex;
+  width: 100%;
+}
 /* google login bt */
 .btn {
   margin-top: 10px;

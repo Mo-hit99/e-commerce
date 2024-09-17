@@ -5,6 +5,7 @@ import Message from "./Message";
 import Loader from "./Loader";
 
 export default function SignUp() {
+  const [showPassword,setShowPassword] = useState(false)
   const [name, setName] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +37,9 @@ export default function SignUp() {
         setError(error.response.data.error);
       });
   }
-
+   function showPasswordHandler(){
+    setShowPassword(!showPassword)
+   }
   return (
     <>
       {openModel && (
@@ -115,6 +118,7 @@ export default function SignUp() {
             title="Email"
             name="email"
             type="text"
+            autoComplete="username"
             className="input_field"
             id="email_field"
             onChange={(e) => setEmail(e.target.value)}
@@ -155,14 +159,28 @@ export default function SignUp() {
             placeholder="Password"
             title="Password"
             name="password"
-            type="password"
+            type={showPassword?"text":"password"}
             className="input_field"
             id="password_field"
+            autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
         </div>
         {error && <p className="error">{error}</p>}
+        <div className="show-password-wrapper">
+            <input
+              className="show-password"
+              type="checkbox"
+              name="show-password"
+              id="show-password"
+              checked={showPassword}
+              onChange={showPasswordHandler}
+            />
+            <label className="show-password-label" htmlFor="show-password">
+              Show Password
+            </label>
+          </div>
         <button title="Sign In" type="submit" className="sign-in_btn">
           <span>Sign Up</span>
         </button>
