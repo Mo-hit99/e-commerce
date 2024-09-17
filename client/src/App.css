@@ -651,6 +651,7 @@
 }
 
 .create-account-span {
+  padding-right: .4rem;
   color: #8b8e98;
 }
 .sign-btn-link {
@@ -659,8 +660,9 @@
 .forgot-password-btn-link{
   display: inline-block;
   text-decoration: none;
-  margin-left: 18rem;
-  margin-top: -.7rem;
+  width: 100%;
+  font-size: 15px;
+  text-align: right;
 }
 .create-account-span02 {
   color: #8b8e98;

@@ -167,7 +167,7 @@ export default function SignIn() {
         {/* {error && <div className="error">{error}</div>} */}
         <NavLink className="sign-btn-link" to={"/signUp"}>
           <span className="create-account-span">Don't have account?</span>
-          Sign Up
+          SignUp
         </NavLink>
         <p className="p line">Or With</p>
         <button className="btn google" type="button" onClick={googleLogin}>
