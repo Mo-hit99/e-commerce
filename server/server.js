@@ -16,7 +16,7 @@ const port= process.env.PORT || 8080;
 app.use(express.json())
 app.use('/productData',express.static("public"));
 app.listen(port,()=>{
-  console.log(`http://localhost:${port}`);
+  console.log(process.env.HTTP_LINK + port);
   db_connection()
 })
 app.use(router)

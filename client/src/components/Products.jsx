@@ -5,6 +5,7 @@ import { addToCard } from "../redux/cartSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import ProductLoading from "./ProductLoading";
+import Search from "./Search";
 
 const LIMIT = 5;
 
@@ -23,7 +24,7 @@ export default function Products() {
 
   async function fetchProductData() {
     try {
-      const response = await axios.get(`http://localhost:3000/productData`, {
+      const response = await axios.get(`${import.meta.env.VITE_SERVER_LINK}/productData`, {
         params: {
           page: activePage,
           pageSize: LIMIT,
@@ -47,7 +48,7 @@ export default function Products() {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `http://localhost:3000/productData?category=${category}&brand=${brand}`
+        `${import.meta.env.VITE_SERVER_LINK}/productData?category=${category}&brand=${brand}`
       );
       let result = await response.data;
       if (result) {
@@ -61,7 +62,7 @@ export default function Products() {
     e.preventDefault();
     try {
       let response = await axios.get(
-        `http://localhost:3000/productData/?search=${query}`
+        `${import.meta.env.VITE_SERVER_LINK}/productData/?search=${query}`
       );
       let result = await response.data;
       if (result) {
@@ -78,17 +79,7 @@ export default function Products() {
   }
   return (
     <section className="product-section-container">
-      <form className="product-search-form" onSubmit={search}>
-        <input
-          className="product-search-input"
-          type="text"
-          placeholder="Search..."
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button className="product-search-btn">
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </form>
+      <Search search={search} setQuery={setQuery}/>
       <div className="main-container-form">
         <div className="category-selection">
           <button onClick={() => handleCategory("shoes")}>Shoes</button>
@@ -108,7 +99,7 @@ export default function Products() {
                   key={product._id}
                   state={product}
                   links={`/ProductDetails/${product._id}`}
-                  image={`http://localhost:3000/productData/${product.filename}`}
+                  image={`${import.meta.env.VITE_SERVER_LINK}/productData/${product.filename}`}
                   brand={product.brand}
                   description={product.title}
                   formattedPrice={"₹ " + product.price}

@@ -46,6 +46,7 @@ userSchema.statics.login = async function(email,password){
     }
     return user;
 }
+
 userSchema.statics.forgotPassword = async function(email){
     
     if(!email){

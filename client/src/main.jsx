@@ -20,7 +20,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const GoogleAuthWrapper=()=>{
   return (
-    <GoogleOAuthProvider clientId="778040544297-35iljdchdtvk0e6gh6qgesp8pjdep6ks.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
       <SignIn></SignIn>
     </GoogleOAuthProvider>
   )

@@ -16,7 +16,7 @@ export default function SignUp() {
   async function submitForm(e) {
     e.preventDefault();
     await axios
-      .post("http://localhost:3000/signup", { name, email, password })
+      .post(`${import.meta.env.VITE_SERVER_LINK}/signup`, { name, email, password })
       .then(() => {
         setOpenModel(true);
         setName("");

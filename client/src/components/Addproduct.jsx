@@ -25,12 +25,11 @@ export default function Addproduct() {
      async function createImages(e) {
        e.preventDefault();
        try {
-         axios.post('http://localhost:3000/productData',formData,{
+         axios.post(`${import.meta.env.VITE_SERVER_LINK}/productData`,formData,{
           headers: {
             "Content-Type": "multipart/form-data"
           },
          }).then((res)=> console.log(res.data))
-
          alert('Product created Successfully')
        } catch (error) {
         console.log({error:error.message})

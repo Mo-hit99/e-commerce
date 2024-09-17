@@ -5,11 +5,18 @@ import bcrypt from 'bcrypt'
 import axios from 'axios'
 import nodemailer from "nodemailer";
 import { oauth2client } from "../utils/googleConfig.js";
+
 dotenv.config();
 
 // expire date jwt
 const Max_age = 3 * 24 * 60 * 60;
 
+// otp generate function
+function generateOtp(){
+  let otp = ''
+  otp = Math.floor(Math.random() * 9000 + 1000)
+  return otp
+}
 // create token
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.JWT_SIGNATURE, {
@@ -118,7 +125,7 @@ export const userForgotPassword = async (req, res) => {
       subject: "Reset your Password",
       text: `Reset Your Password
              Click on the following link to reset your password:
-             http://localhost:5173/reset-password/${token},
+             ${process.env.CLIENT_HTTP_LINK+token},
              The link will expire in 10 minutes.</p>
              If you didn't request a password reset, please ignore this email.`
   };
@@ -164,7 +171,7 @@ export const googleLogin= async (req,res)=>{
     const {code}= req.query;
     const googleRes= await oauth2client.getToken(code);
     oauth2client.setCredentials(googleRes.tokens);
-    const userRes = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`)
+    const userRes = await axios.get(`${process.env.GOOGLE_AUTH_LINK + googleRes.tokens.access_token}`)
     const {email,name,picture} = userRes.data;
     let user = await userModel.findOne({email})
     if(!user){

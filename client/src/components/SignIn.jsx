@@ -16,7 +16,7 @@ export default function SignIn() {
 
   async function submitForm(e) {
     e.preventDefault();
-    const response = axios.post("http://localhost:3000/login", {
+    const response = axios.post(`${import.meta.env.VITE_SERVER_LINK}/login`, {
       email,
       password,
     });
@@ -169,7 +169,7 @@ export default function SignIn() {
           <span className="create-account-span">Don't have account?</span>
           Sign Up
         </NavLink>
-        <p class="p line">Or With</p>
+        <p className="p line">Or With</p>
         <button className="btn google" type="button" onClick={googleLogin}>
         <svg
     width={20}
