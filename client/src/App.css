@@ -664,6 +664,10 @@
   font-size: 15px;
   text-align: right;
 }
+.show-password[type="checkbox"]{
+  width: 15px;
+  height: 14px;
+}
 .create-account-span02 {
   color: #8b8e98;
   margin-left: 0.4rem;

@@ -174,7 +174,7 @@ export default function SignIn() {
               checked={showPassword}
               onChange={showPasswordHandler}
             />
-            <label className="show-password-label" htmlFor="show-password">
+            <label className="show-password-label" htmlFor="">
               Show Password
             </label>
           </div>
