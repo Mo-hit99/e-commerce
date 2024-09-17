@@ -25,15 +25,18 @@ export default function Addproduct() {
      async function createImages(e) {
        e.preventDefault();
        try {
-         axios.post(`${import.meta.env.VITE_SERVER_LINK}/productData`,formData,{
+         const response =  axios.post(`${import.meta.env.VITE_SERVER_LINK}/productData`,formData,{
           headers: {
             "Content-Type": "multipart/form-data"
           },
-         }).then((res)=> console.log(res.data))
-         alert('Product created Successfully')
+        })
+        const data =await response;
+         if(data){
+           alert('Product created Successfully')
+         }
        } catch (error) {
+         alert('invalid Data or must fill fields')
         console.log({error:error.message})
-        alert('invalid Data or must fill fields')
        }
      }
 
@@ -47,21 +50,21 @@ export default function Addproduct() {
         <button className='product-remove-btn' onClick={()=>setModal(false)}><i className="fa-solid fa-circle-xmark"></i></button>
       <form id='form-data' onSubmit={createImages} encType="multipart/form-data">
       <label htmlFor="brand">Brand</label>
-      <input className='create-data' type="text" name="brand" id='brand' onChange={(e)=> setBrand(e.target.value)} required/>
+      <input className='create-data' type="text" name="brand" id='brand' onChange={(e)=> setBrand(e.target.value)}/>
       <label htmlFor="title">Title</label>
-      <input className='create-data' type="text" name='title' id='title' onChange={(e)=> setTitle(e.target.value)} required/>
+      <input className='create-data' type="text" name='title' id='title' onChange={(e)=> setTitle(e.target.value)}/>
       <label htmlFor="price">Price</label>
-      <input className='create-data' type="text" name='price' id='price' onChange={(e)=> setPrice(e.target.value)} required/>
+      <input className='create-data' type="text" name='price' id='price' onChange={(e)=> setPrice(e.target.value)}/>
       <label htmlFor="category">Category</label>
-      <input className='create-data' type="text" name='category' id='category' onChange={(e)=> setCategory(e.target.value)} required/>
+      <input className='create-data' type="text" name='category' id='category' onChange={(e)=> setCategory(e.target.value)}/>
       <label htmlFor="rate">Rate</label>
-      <input className='create-data' type="text" name='rate' id='rate' onChange={(e)=> setRate(e.target.value)} required/>
+      <input className='create-data' type="text" name='rate' id='rate' onChange={(e)=> setRate(e.target.value)}/>
       <label htmlFor="count">Count</label>
-      <input  className='create-data'type="text" name='count' id='count' onChange={(e)=> setCount(e.target.value)} required/>
+      <input  className='create-data'type="text" name='count' id='count' onChange={(e)=> setCount(e.target.value)} />
       <label htmlFor="description">Description</label>
-      <textarea className='product-textarea' type="textarea" name='description'id='description' onChange={(e)=> setDescription(e.target.value)}  required/>
+      <textarea className='product-textarea' type="textarea" name='description'id='description' onChange={(e)=> setDescription(e.target.value)}/>
       <label className='image-uploader' htmlFor="image-uploader"><i className="fa-solid fa-camera"></i>Upload Image</label>
-      <input className='create-data' type="file" name="image" id='image-uploader' onChange={(e)=> setImage(e.target.files[0])}/>
+      <input multiple className='image-input' type="file" name="image" id='image-uploader' onChange={(e)=> setImage(e.target.files[0])}/>
       <div className="btn-container">
       <button className='product-cancel-btn' onClick={()=> setModal(false)}>Cancel</button>
       <button className='product-save-btn'>Save</button>

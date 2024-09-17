@@ -73,11 +73,12 @@ export const createProductData = async (req, res) => {
     });
     await productImg.save();
     res.send("file stored in data");
-    console.log("image has been stored in database");
+    console.log("file has been stored in database");
   } catch (error) {
-    console.log("image has failed to stored in database", {
-      error: error.message,
+    console.log("file has failed to stored in database", {
+      error: error,
     });
+    res.status(500).json(error)
   }
 };
 
