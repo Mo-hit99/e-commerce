@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 import axios from 'axios'
 import nodemailer from "nodemailer";
 import { oauth2client } from "../utils/googleConfig.js";
+import { optTemplate } from "../template/template.js";
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const Max_age = 3 * 24 * 60 * 60;
 // otp generate function
 function generateOtp(){
   let otp = ''
-  otp = Math.floor(Math.random() * 9000 + 1000)
+  otp = Math.floor(Math.random() * 9000 + 1000).toString()
   return otp
 }
 // create token
@@ -72,16 +73,69 @@ export const UserDeleteDate = async (req, res) => {
     res.status(400).json({ error: error });
   }
 };
-
 // signup user
 export const UserCreateData = async (req, res) => {
   const { name, email, password } = req.body;
   try {
-    const user = await userModel.signup(name, email, password);
+    const otp = generateOtp();
+    const user = await userModel.signup(name, email, password,otp);
     const token = createToken(user._id);
-    res.status(200).json({ email, token });
+    let transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      requireTLS: true,
+      auth: {
+        user: process.env.NODE_MAIL_ID,
+        pass: process.env.NODE_MAILER_PASSWORD,
+      },
+    });
+    
+    let mailOptions = {
+      from: `"e-Bazar.com" <${process.env.NODE_MAIL_ID}>`,
+      to: `${user.email}`,
+      subject: "verification Email",
+      html: optTemplate(user.name,otp)
+    };
+    
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        return res.send({ Status: "Success" });
+      }
+    });
+    res.status(200).json({ email, token,});
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+};
+
+// verification otp
+export const verificationOtp = async (req, res) => {
+  try {
+    const { code } = req.body;
+
+    // Validate of the OTP code
+    if (!code) {
+      return res.status(400).json({ message: "OTP code is required" });
+    }
+
+    const user = await userModel.findOne({ otp: code });
+
+    if (!user) {
+      return res.status(400).json({ message: "OTP expired or invalid" });
+    }
+
+    user.isVerified = true;
+    user.otp = undefined; // Clear the OTP after successful verification
+    await user.save();
+
+    console.log(`User verified: ${user.isVerified}`);
+    res.status(200).json({ status: "Success", message: "User verified successfully" });
+  } catch (error) {
+    console.error("Error verifying OTP:", error); // Log the error
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 

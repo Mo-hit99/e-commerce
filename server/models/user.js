@@ -6,12 +6,14 @@ const userSchema = mongoose.Schema({
   name: { type: String},
   email:{ type: String,unique: true,lowercase:true },
   password:{ type: String},
-  image:{type:String}
+  image:{type:String},
+  otp:{type:String},
+  isVerified:{type:Boolean,default:false},
 },{timestamps:true});
 
 
 // static signup for User
-userSchema.statics.signup= async function(name,email,password){
+userSchema.statics.signup= async function(name,email,password,otp){
     if(!email || !password || !name){
         throw Error("All fields must be filled")
     }
@@ -25,9 +27,12 @@ userSchema.statics.signup= async function(name,email,password){
     if(exist){
         throw Error('Email already in use')
     }
+    if(!otp){
+        throw Error('Invalid otp')
+    }
     const salt=await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password,salt)
-    const user = await this.create({name,email,password:hash})
+    const user = await this.create({name,email,password:hash,otp})
     return user;
 }
 // login authentication for USer

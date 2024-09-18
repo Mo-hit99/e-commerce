@@ -17,14 +17,15 @@ import ViewProduct from "./components/ViewProduct.jsx";
 import ForgotPassword from "./components/ForgotPassword.jsx";
 import RestPassword from "./components/RestPassword.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import VerificationOtp from "./components/VerificationOtp.jsx";
 
-const GoogleAuthWrapper=()=>{
+const GoogleAuthWrapper = () => {
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
       <SignIn></SignIn>
     </GoogleOAuthProvider>
-  )
-}
+  );
+};
 const router = createBrowserRouter([
   {
     path: "/",
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/reset-password/:token",
         element: <RestPassword />,
+      },
+      {
+        path: "/verification-Otp",
+        element:<VerificationOtp/>
       },
       {
         path: "/Addcart",

@@ -27,8 +27,7 @@ export default function ForgotPassword() {
         <div className="title_container">
           <p className="title">Forgot Password</p>
           <span className="subtitle">
-            Get started with our app, just create an account and enjoy the
-            experience.
+          Please checked the Email and also checked Spam folder for Forgot Password Process.
           </span>
         </div>
         <br />

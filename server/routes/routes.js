@@ -10,6 +10,7 @@ import {
   userLogin,
   userRestPassword,
   UserUpdateData,
+  verificationOtp,
 } from "../controller/controller.js";
 
 dotenv.config();
@@ -34,6 +35,8 @@ route.post("/signup", UserCreateData);
 // user login
 route.post("/login", userLogin);
 
+// verification otp
+route.post('/verification-Otp',verificationOtp)
 // forgot-password
 
 route.post("/forgot-password", userForgotPassword);

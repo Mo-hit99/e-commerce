@@ -5,47 +5,54 @@ import Message from "./Message";
 import Loader from "./Loader";
 
 export default function SignUp() {
-  const [showPassword,setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [openModel, setOpenModel] = useState(false);
-  const [isLoading,setIsLoading]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   async function submitForm(e) {
     e.preventDefault();
     await axios
-      .post(`${import.meta.env.VITE_SERVER_LINK}/signup`, { name, email, password })
+      .post(`${import.meta.env.VITE_SERVER_LINK}/signup`, {
+        name,
+        email,
+        password,
+      })
       .then(() => {
         setOpenModel(true);
         setName("");
         setEmail(""), setPassword("");
-        setTimeout(()=>{
-          setOpenModel(false)
-        },1500)
-        setTimeout(()=>{
-          setIsLoading(true)
-       },1000)
-       setTimeout(() => {
-         setIsLoading(false)
-         navigate("/signIn");
-       },5000);
+        setTimeout(() => {
+          setOpenModel(false);
+        }, 1500);
+        setTimeout(() => {
+          setIsLoading(true);
+        }, 1000);
+        setTimeout(() => {
+          setIsLoading(false);
+          navigate("/verification-Otp");
+        }, 5000);
       })
       .catch((error) => {
         setError(error.response.data.error);
       });
   }
-   function showPasswordHandler(){
-    setShowPassword(!showPassword)
-   }
+  function showPasswordHandler() {
+    setShowPassword(!showPassword);
+  }
   return (
     <>
       {openModel && (
-       <Message title={'Successfully SignUp!'} subtitle={'We Redirect To The Login Page'}/>
+        <Message
+          title={"Successfully SignUp!"}
+          subtitle={"We Redirect To The Login Page"}
+        />
       )}
-      {isLoading && <Loader/>}
+      {isLoading && <Loader />}
       <form className="form_container" onSubmit={submitForm}>
         <div className="title_container">
           <p className="title">SignUp to your Account</p>
@@ -159,7 +166,7 @@ export default function SignUp() {
             placeholder="Password"
             title="Password"
             name="password"
-            type={showPassword?"text":"password"}
+            type={showPassword ? "text" : "password"}
             className="input_field"
             id="password_field"
             autoComplete="current-password"
@@ -169,18 +176,18 @@ export default function SignUp() {
         </div>
         {error && <p className="error">{error}</p>}
         <div className="show-password-wrapper">
-            <input
-              className="show-password"
-              type="checkbox"
-              name="show-password"
-              id="show-password"
-              checked={showPassword}
-              onChange={showPasswordHandler}
-            />
-            <label className="show-password-label" htmlFor="">
-              Show Password
-            </label>
-          </div>
+          <input
+            className="show-password"
+            type="checkbox"
+            name="show-password"
+            id="show-password"
+            checked={showPassword}
+            onChange={showPasswordHandler}
+          />
+          <label className="show-password-label" htmlFor="">
+            Show Password
+          </label>
+        </div>
         <button title="Sign In" type="submit" className="sign-in_btn">
           <span>Sign Up</span>
         </button>
