@@ -1,5 +1,5 @@
 import express from "express";
-import {createProductData,DeleteProductData, getAllProductData, getProductDataById, UpdateProductData } from "../controller/Product-controller.js"
+import {createProductData,DeleteProductData, getAllProductData, getProductDataById, productReview, UpdateProductData } from "../controller/Product-controller.js"
 import upload from "../Image_multer/image_multer.js";
 
 
@@ -22,4 +22,8 @@ router.put('/productData/:id',upload.single('image'),UpdateProductData)
 
 // delete data
 router.delete('/productData/:id',DeleteProductData)
+
+// review product
+
+router.post('/productData/:id/review',productReview);
 

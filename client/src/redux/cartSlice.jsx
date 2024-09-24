@@ -7,6 +7,24 @@ export const cartSlice = createSlice({
     cartTotalAmount: 0,
   },
   reducers: {
+    addToWishList(state,action){
+      const { productId, quantity, product } = action.payload;
+      const indexProductId = state.items.findIndex(
+        (item) => item.productId === productId
+      );
+      if (indexProductId >= 0) {
+        state.items[indexProductId].quantity += quantity;
+      } else {
+        state.items.push({ productId, quantity, product });
+      }   
+    },
+    removeToWishList(state,action){
+      const  productId  = action.payload;
+      const nextcartItems = state.items.filter(
+        (item) => item.productId !== productId
+      );
+      state.items = nextcartItems;
+    },
     addToCard(state, action) {
       const { productId, quantity, product } = action.payload;
       const indexProductId = state.items.findIndex(
@@ -86,6 +104,8 @@ export const cartSlice = createSlice({
 });
 export const {
   addToCard,
+  removeToWishList,
+  addToWishList,
   removeToCart,
   updateQuantityItems,
   subtractQuantityItems,

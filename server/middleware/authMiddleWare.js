@@ -1,28 +1,32 @@
 import jwt from 'jsonwebtoken';
-import { userModel } from '../models/user.js';
+// import { userModel } from '../models/user.js';
 import dotenv from 'dotenv'
 dotenv.config();
 
-const requireAuth = async (req,res,next)=>{
-    const {authorization} = req.headers
-    if(!authorization){
-        return res.status(401).json({error:'Authorization token required'})    
-    }
-    const token = authorization.split(' ')[1];
-    try {
-        const {_id} = jwt.verify(token,process.env.JWT_SIGNATURE);
-        req.user=await userModel.findOne({_id}).select('_id')
-        next()
-    } catch (error) {
-        console.log(error)
-        res.status(401).json({error:"required is Not authorized"})
-    }
-}
 
 
-export default requireAuth;
+export const authMiddleware = (req, res, next) => {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(403).send({ message: "No token provided!" });
 
+    jwt.verify(token, process.env.JWT_SIGNATURE, (err, decoded) => {
+        if (err) return res.status(401).send({ message: "Unauthorized!" });
+        req.user = decoded; // Assuming decoded contains user info
+        next();
+    });
+};
 
+// const submitReview = async (productId, reviewData) => {
+//     const token = localStorage.getItem('token');
 
-
-
+//     try {
+//         const response = await axios.post(`/api/products/${productId}/reviews`, reviewData, {
+//             headers: {
+//                 Authorization: token,
+//             },
+//         });
+//         console.log(response.data);
+//     } catch (error) {
+//         console.error("Error submitting review:", error.response.data);
+//     }
+// };

@@ -25,7 +25,9 @@ export default function SignUp() {
       .then(() => {
         setOpenModel(true);
         setName("");
-        setEmail(""), setPassword("");
+        setEmail("");
+        setPassword("");
+        setError('');
         setTimeout(() => {
           setOpenModel(false);
         }, 1500);

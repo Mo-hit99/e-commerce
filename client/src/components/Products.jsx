@@ -14,6 +14,7 @@ export default function Products() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
+  const [loadingOff,setLoadingOff]=useState(true)
   const [activePage, setActivePage] = useState(1);
   const [totalProductData, setTotalProductData] = useState(0);
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ export default function Products() {
       let result = await response.data;
       if (result) {
         setData(result.queryData);
+        setLoadingOff(!loadingOff)
       }
     } catch (error) {
       console.log({ error: error.message });
@@ -76,21 +78,22 @@ export default function Products() {
   function handleCategory(categoryItem) {
     const filterCategory = data.filter((ele) => ele.category === categoryItem);
     setData(filterCategory);
+    setLoadingOff(!loadingOff)
   }
   return (
     <section className="product-section-container">
       <Search search={search} setQuery={setQuery}/>
-      <div className="main-container-form">
         <div className="category-selection">
           <button onClick={() => handleCategory("shoes")}>Shoes</button>
         </div>
+      <div className="main-container-form">
 
         <InfiniteScroll
           style={{ textAlign: "center" }}
           dataLength={data.length}
           next={fetchProductData}
           hasMore={data.length < totalProductData}
-          loader={<ProductLoading />}
+          loader={loadingOff && data != 0 && <ProductLoading />}
         >
           <div className="productCard-container">
             {data && data.length > 0 ?  (

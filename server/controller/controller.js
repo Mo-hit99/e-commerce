@@ -37,17 +37,17 @@ export const get_allData = async (req, res) => {
 };
 
 // get by id data
-export const getById_data = async (req, res) => {
-  const { id } = req.params;
-  const User_data = await userModel.findById(id);
+// export const getById_data = async (req, res) => {
+//   const id  = req.params.id;
+//   const User_data = await userModel.findById(id);
 
-  try {
-    res.status(200).json(User_data);
-    console.log(User_data);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+//   try {
+//     res.status(200).json(User_data);
+//     console.log(User_data);
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
 // update user data
 export const UserUpdateData = async (req, res) => {

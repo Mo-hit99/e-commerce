@@ -17,6 +17,7 @@ export default function VerificationOtp() {
       })
       .then(() => {
           setCode('')
+          setError('')
         setTimeout(() => {
             setIsLoading(true);
           }, 1000);

@@ -5,12 +5,14 @@ import { db_connection } from "./DB Connection/db_connection.js";
 import { route } from "./routes/routes.js";
 import { router } from "./routes/router.js";
 
+
 dotenv.config();
 
+const port= process.env.PORT || 8080;
 const app = express();
 app.use(cors())
 
-const port= process.env.PORT || 8080;
+
 
 
 app.use(express.json())

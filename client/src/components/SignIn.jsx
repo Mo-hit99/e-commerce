@@ -26,6 +26,7 @@ export default function SignIn() {
       setOpenModel(true);
       setEmail("");
       setPassword("");
+      setError('')
       setTimeout(() => {
         setOpenModel(false);
       }, 1500);

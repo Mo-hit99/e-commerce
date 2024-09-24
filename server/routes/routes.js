@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import {
   get_allData,
-  getById_data,
   googleLogin,
   UserCreateData,
   UserDeleteDate,
@@ -21,7 +20,7 @@ export const route = express.Router();
 route.get("/", get_allData);
 
 // get user data by Id
-route.get("/:id", getById_data);
+// route.get("/:id", getById_data);
 
 // update user data
 route.patch("/:id", UserUpdateData);
