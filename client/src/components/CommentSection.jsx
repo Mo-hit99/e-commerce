@@ -87,7 +87,7 @@ export default function CommentSection({ id }) {
       </div>
       <div className="comments">
         {commentData && (
-          commentData.filter(i => i._id === id)
+          commentData.filter(comment => comment._id === id)
           .map((data) =>
             data.reviews.map((dataComment) => (
               <>
