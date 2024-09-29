@@ -2,8 +2,9 @@ import express from "express";
 import cors from 'cors'
 import dotenv from "dotenv";
 import { db_connection } from "./DB Connection/db_connection.js";
-import { route } from "./routes/routes.js";
-import { router } from "./routes/router.js";
+import { Product_router } from "./routes/product_router.js";
+import { User_route } from "./routes/User_routes.js";
+
 
 
 dotenv.config();
@@ -21,5 +22,5 @@ app.listen(port,()=>{
   console.log(process.env.HTTP_LINK + port);
   db_connection()
 })
-app.use(router)
-app.use(route)
+app.use(Product_router)
+app.use(User_route)

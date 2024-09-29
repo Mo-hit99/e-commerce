@@ -55,11 +55,40 @@ export const getProductDataById = async (req, res) => {
   }
 };
 //create product data
+// export const createProductData = async (req, res) => {
+//   try {
+//     const { brand, title, price, description, category, rate, count } =
+//       req.body;
+//     const {filename} = req.file;
+//     const productImg = new ProductSchema({
+//       brand,
+//       title,
+//       price,
+//       description,
+//       category,
+//       rate,
+//       count,
+//       filename,
+//     });
+    
+//     await productImg.save();
+//     res.send("file stored in data");
+//     console.log("file has been stored in database");
+//   } catch (error) {
+//     console.log("file has failed to stored in database", {
+//       error: error,
+//     });
+//     res.status(400).json(error.message)
+//   }
+// };
 export const createProductData = async (req, res) => {
   try {
     const { brand, title, price, description, category, rate, count } =
       req.body;
-    const {filename } = req.file;
+      const fileDataArray = req.files.map(file => file.filename);
+     if(!fileDataArray){
+      console.log('no file there!!!')
+     }
     const productImg = new ProductSchema({
       brand,
       title,
@@ -68,8 +97,9 @@ export const createProductData = async (req, res) => {
       category,
       rate,
       count,
-      filename,
+      filename:fileDataArray,
     });
+    
     await productImg.save();
     res.send("file stored in data");
     console.log("file has been stored in database");
@@ -77,7 +107,7 @@ export const createProductData = async (req, res) => {
     console.log("file has failed to stored in database", {
       error: error,
     });
-    res.status(500).json(error)
+    res.status(400).json(error.message)
   }
 };
 
@@ -87,9 +117,7 @@ export const UpdateProductData = async (req, res) => {
     const { id } = req.params;
     const { brand, title, price, description, category, rate, count } =
       req.body;
-    const {filename} = req.file;
-
-    // Use the $set operator to update the document
+      const fileDataArray = req.files.map(file => file.filename);
     const updateProduct = await ProductSchema.findOneAndUpdate(
       { _id: id },
       {
@@ -100,7 +128,7 @@ export const UpdateProductData = async (req, res) => {
         category,
         rate,
         count,
-        filename,
+        filenames:fileDataArray,
       },
       { new: true }
     );
@@ -111,7 +139,7 @@ export const UpdateProductData = async (req, res) => {
     console.log("Product detail updated");
   } catch (error) {
     res.status(400).json({ error: error });
-    console.log("Product detail failed" , error);
+    console.log("Product detail failed" , error.message);
   }
 };
 
@@ -239,3 +267,59 @@ export const productReview = async (req, res) => {
     });
   }
 };
+
+// delete Product Review
+export const productDeleteReview = async (req, res) => {
+  try {
+    const { reviewId } = req.params; 
+    const { productId } = req.params; 
+
+    // Fetch the product by ID
+    const product = await ProductSchema.findById(productId);
+
+    // Check if the product exists
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    product.reviews.splice(product.reviews.findIndex(ele => ele._id.toString() === reviewId) , 1)
+
+    // Save the updated product document
+    await product.save();
+    res.status(200).json({ message: 'Review deleted successfully'});
+    console.log("Review deleted");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+    console.log("Failed to delete review");
+  }
+}
+
+// update product reviews
+
+export const productUpdateReview = async (req,res)=>{
+  try {
+    const { reviewId } = req.params; 
+    const { productId } = req.params; 
+    const {upDatedComment} = req.body;
+    if(!upDatedComment){
+      return res.status(400).json( {success: false,message:"please edit your comment!"})
+    }
+    // Fetch the product by ID
+    const product = await ProductSchema.findById(productId);
+
+    // Check if the product exists
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+   const updateComment = await product.reviews.find( ele => ele._id.toString() === reviewId)
+   updateComment.comment = upDatedComment
+    // Save the updated product document
+    await product.save();
+    res.status(200).json({ message: 'Review update successfully'});
+    console.log("Review update");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+    console.log("Failed to update review");
+  }
+}

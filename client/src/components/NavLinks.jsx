@@ -56,14 +56,14 @@ export default function NavLinks({ admin, logo, products, signIn, Addcart }) {
                   <div className="menu">
                     <div className="item">
                       <span className="link">
-                        {isUserGoogleSignedIn ? (
+                        {isUserGoogleSignedIn  ? (
                           <img
                             className="profile-image"
-                            src={userData?.image}
-                            alt={userData?.name}
+                            src={userData.image}
+                            alt={userData.name}
                           />
                         ) : (
-                          <p>{UserEmail}</p>
+                          <p>{UserEmail.split('').splice(0,8).join('')}</p>
                         )}
                         <svg viewBox="0 0 360 360" xmlSpace="preserve">
                           <g id="SVGRepo_iconCarrier">

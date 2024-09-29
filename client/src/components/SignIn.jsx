@@ -77,7 +77,7 @@ export default function SignIn() {
       {isLoading && <Loader />}
       <form className="form_container" onSubmit={submitForm}>
         <div className="title_container">
-          <p className="title">Login to your Account</p>
+          <p className="title-user">Login to your Account</p>
           <span className="subtitle">
             Get started with our app, just create an account and enjoy the
             experience.

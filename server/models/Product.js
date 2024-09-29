@@ -8,6 +8,7 @@ const ReviewProduct = mongoose.Schema({
         type:String
     },
 },{timestamps:true})
+
 const Product_DB = mongoose.Schema({
     brand:{type:String},
     title:{type:String},
@@ -16,7 +17,7 @@ const Product_DB = mongoose.Schema({
     category:{type:String},
     rate:{type:String},
     count:{type:String},
-    filename:{type:String},
+    filename:[{type:String}],
     reviews:[ReviewProduct],
     numReviews: {
         type: Number,

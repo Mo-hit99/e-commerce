@@ -11,7 +11,6 @@ const LIMIT = 5;
 
 export default function Products() {
   const [data, setData] = useState("");
-  const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [loadingOff,setLoadingOff]=useState(true)
@@ -60,20 +59,6 @@ export default function Products() {
       console.log({ error: error.message });
     }
   }
-  async function search(e) {
-    e.preventDefault();
-    try {
-      let response = await axios.get(
-        `${import.meta.env.VITE_SERVER_LINK}/productData/?search=${query}`
-      );
-      let result = await response.data;
-      if (result) {
-        setData(result.queryData);
-      }
-    } catch (error) {
-      console.log(`error:${error}`);
-    }
-  }
 
   function handleCategory(categoryItem) {
     const filterCategory = data.filter((ele) => ele.category === categoryItem);
@@ -82,7 +67,7 @@ export default function Products() {
   }
   return (
     <section className="product-section-container">
-      <Search search={search} setQuery={setQuery}/>
+      <Search setData={setData}/>
         <div className="category-selection">
           <button onClick={() => handleCategory("shoes")}>Shoes</button>
         </div>
@@ -102,7 +87,7 @@ export default function Products() {
                   key={product._id}
                   state={product}
                   links={`/ProductDetails/${product._id}`}
-                  image={`${import.meta.env.VITE_SERVER_LINK}/productData/${product.filename}`}
+                  image={`${import.meta.env.VITE_SERVER_LINK}/productData/${product.filename[0]}`}
                   brand={product.brand}
                   description={product.title}
                   formattedPrice={"₹ " + product.price}

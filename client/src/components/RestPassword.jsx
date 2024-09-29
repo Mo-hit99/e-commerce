@@ -25,7 +25,7 @@ export default function RestPassword() {
       <>
         <form className="form_container" onSubmit={submitForm}>
           <div className="title_container">
-            <p className="title">Reset Password</p>
+            <p className="title-user">Reset Password</p>
             <span className="subtitle">
               Get started with our app, just create an account and enjoy the
               experience.

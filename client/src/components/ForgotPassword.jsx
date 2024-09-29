@@ -25,7 +25,7 @@ export default function ForgotPassword() {
     <>
       <form className="form_container" onSubmit={submitForm}>
         <div className="title_container">
-          <p className="title">Forgot Password</p>
+          <p className="title-user">Forgot Password</p>
           <span className="subtitle">
           Please checked the Email and also checked Spam folder for Forgot Password Process.
           </span>

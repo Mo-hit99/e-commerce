@@ -35,7 +35,7 @@ export default function VerificationOtp() {
     {isLoading && <Loader />}
     <form className="form_container" onSubmit={submitForm}>
       <div className="title_container">
-        <p className="title">Verify Email</p>
+        <p className="title-user">Verify Email</p>
         <span className="subtitle">
          Please the Email and also checked Spam folder for Email Verification Process.
         </span>
